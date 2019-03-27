@@ -53,3 +53,24 @@ while True:
         print("------------------------------")
         intro=input("Pulsa enter para continuar")
         print("")
+
+    elif elec==4:
+        carretera=input("Dime una carretera: ")
+
+        validacion=doc.xpath("/RAIZ/PROVINCIA/CARRETERA/DENOMINACION/text()")
+
+        if carretera in validacion:
+            provincias=doc.xpath("/RAIZ/PROVINCIA/CARRETERA[DENOMINACION='{}']/../NOMBRE/text()".format(carretera))
+            radares=doc.xpath("/RAIZ/PROVINCIA/CARRETERA[DENOMINACION='{}']/RADAR".format(carretera))
+            
+            print("PASA POR:")
+            for provincia in provincias:
+                print("-",provincia)
+
+            print("Hay",len(radares), "radares")
+        else:
+            print("LA CARRETERA NO EXISTE")
+        
+        print("------------------------------")
+        intro=input("Pulsa enter para continuar")
+        print("")
