@@ -21,6 +21,7 @@ while True:
     
         for provincia in lista:
             print("-",provincia)
+
         print("------------------------------")
         intro=input("Pulsa enter para continuar")
         print("")
@@ -28,9 +29,27 @@ while True:
     elif elec==2:
         lista=doc.xpath("/RAIZ/PROVINCIA/CARRETERA/RADAR")
         print(len(lista),"radares hay")
+
         print("------------------------------")
         intro=input("Pulsa enter para continuar")
         print("")
     
     elif elec==3:
+        provincia=input("Dime una provincia: ")
         
+        validacion=doc.xpath("/RAIZ/PROVINCIA/NOMBRE/text()")
+
+        if provincia in validacion:
+            lista_carreteras=doc.xpath("/RAIZ/PROVINCIA[NOMBRE='{}']/CARRETERA/DENOMINACION/text()".format(provincia))
+            lista_radar=doc.xpath("/RAIZ/PROVINCIA[NOMBRE='{}']/CARRETERA/RADAR".format(provincia))
+            print("LAS CARRETERAS SON:")
+            for carretera in lista_carreteras:
+                print("-",carretera)
+            
+            print("Hay",len(lista_radar), "radares")
+        else:
+            print("LA PROVINCIA INTRODUCIDA NO EXISTE")
+        
+        print("------------------------------")
+        intro=input("Pulsa enter para continuar")
+        print("")
