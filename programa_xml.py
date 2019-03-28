@@ -1,3 +1,4 @@
+import webbrowser
 from lxml import etree
 doc=etree.parse('radares.xml')
 
@@ -71,6 +72,30 @@ while True:
         else:
             print("LA CARRETERA NO EXISTE")
         
+        print("------------------------------")
+        intro=input("Pulsa enter para continuar")
+        print("")
+
+    elif elec==5:
+        carretera=input("Dime una carretera: ")
+
+        validacion=doc.xpath("/RAIZ/PROVINCIA/CARRETERA/DENOMINACION/text()")
+
+        if carretera in validacion:
+            radares=doc.xpath("/RAIZ/PROVINCIA/CARRETERA[DENOMINACION='{}']/RADAR".format(carretera))
+            latitudes=doc.xpath("/RAIZ/PROVINCIA/CARRETERA[DENOMINACION='{}']/RADAR/PUNTO_INICIAL/LATITUD/text()".format(carretera))
+            longitudes=doc.xpath("/RAIZ/PROVINCIA/CARRETERA[DENOMINACION='{}']/RADAR/PUNTO_INICIAL/LONGITUD/text()".format(carretera))
+            
+            print("Hay",len(radares), "radares")
+            print("")
+
+            for latitud in latitudes:
+                for longitud in longitudes:
+                    print("- https://www.openstreetmap.org/#map=6/{}/{}".format(latitud,longitud))
+                    
+        else:
+            print("LA CARRETERA NO EXISTE")
+            
         print("------------------------------")
         intro=input("Pulsa enter para continuar")
         print("")
